@@ -1,0 +1,6 @@
+README.md
+setup.py
+PlanktonPy.egg-info/PKG-INFO
+PlanktonPy.egg-info/SOURCES.txt
+PlanktonPy.egg-info/dependency_links.txt
+PlanktonPy.egg-info/top_level.txt
