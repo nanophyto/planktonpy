@@ -1,4 +1,6 @@
 # Overview
 
-PlanktonPy is a 0D dimensional plankton ecosystem model in Python.
+PlanktonPy is a 0D plankton ecosystem model in Python.
 
+## Documentation
+https://planktopy.readthedocs.io/en/latest/#

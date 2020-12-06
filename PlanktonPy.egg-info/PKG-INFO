@@ -1,16 +1,17 @@
 Metadata-Version: 2.1
 Name: PlanktonPy
-Version: 0.0.1
+Version: 0.0.2
 Summary: 0D size structered ecosystem model in Python
-Home-page: https://github.com/pypa/sampleproject
+Home-page: https://planktopy.readthedocs.io/en/latest/#
 Author: Joost de Vries
 Author-email: joost.devries@bristol.ac.uk
 License: UNKNOWN
 Description: # Overview
         
-        PlanktonPy is a 0D dimensional plankton ecosystem model in Python.
+        PlanktonPy is a 0D plankton ecosystem model in Python.
         
-        
+        ## Documentation
+        https://planktopy.readthedocs.io/en/latest/#
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
