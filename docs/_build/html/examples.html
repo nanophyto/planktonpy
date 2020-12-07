@@ -35,50 +35,66 @@
             
   <div class="section" id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="monod-model">
-<h2>Monod Model<a class="headerlink" href="#monod-model" title="Permalink to this headline">¶</a></h2>
-<p>A monod model can be run using the following code:</p>
+<div class="section" id="steady-state-monod">
+<h2>Steady state monod<a class="headerlink" href="#steady-state-monod" title="Permalink to this headline">¶</a></h2>
+<p>A steady state monod model can be created like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">planktonpy</span> <span class="k">as</span> <span class="nn">pp</span>
-<span class="kn">from</span> <span class="nn">planktonpy</span> <span class="kn">import</span> <span class="n">parameters</span>
-<span class="kn">from</span> <span class="nn">planktonpy</span> <span class="kn">import</span> <span class="n">groups</span>
-<span class="kn">from</span> <span class="nn">planktonpy</span> <span class="kn">import</span> <span class="n">environments</span>
 
-<span class="n">plankton_groups</span> <span class="o">=</span> <span class="n">groups</span><span class="p">(</span><span class="s2">&quot;ward2016&quot;</span><span class="p">)</span>
+<span class="c1">#Define environmental parameters:</span>
+<span class="n">environment</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">def_steady_env</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Si</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">PAR</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
 
-<span class="n">plankton_param</span> <span class="o">=</span>  <span class="n">parameters</span><span class="p">(</span><span class="s2">&quot;ward2016&quot;</span><span class="p">)</span>
+<span class="c1">#Load plankton groups:</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_groups</span><span class="p">(</span><span class="s2">&quot;dutkiewicz2020&quot;</span><span class="p">)</span>
 
-<span class="n">environment</span> <span class="o">=</span> <span class="n">environments</span><span class="p">(</span><span class="s2">&quot;oligotrophic_surface&quot;</span><span class="p">)</span>
+<span class="c1">#Load plankton parameters:</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_param</span><span class="p">(</span><span class="s2">&quot;dutkiewicz2020&quot;</span><span class="p">)</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">monod</span><span class="p">(</span><span class="n">plankton_groups</span><span class="p">,</span> <span class="n">plankton_param</span><span class="p">,</span> <span class="n">environment</span><span class="p">)</span>
+<span class="c1">#Run model:</span>
+<span class="n">model_output</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">monod_steady</span><span class="p">(</span><span class="n">environment</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="variable-state-monod">
+<h2>Variable state monod<a class="headerlink" href="#variable-state-monod" title="Permalink to this headline">¶</a></h2>
+<p>A variable monod model can be run like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">planktonpy</span> <span class="k">as</span> <span class="nn">pp</span>
+
+<span class="c1">#Define enviromental parameters:</span>
+<span class="n">environment</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">def_variable_env</span><span class="p">(</span><span class="n">N_min</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">N_max</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+                                   <span class="n">Si_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Si_max</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                   <span class="n">PAR_min</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">PAR_max</span><span class="o">=</span><span class="mi">7500</span><span class="p">,</span>
+                                   <span class="n">frequency</span><span class="o">=</span><span class="mi">365</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+<span class="c1">#Load groups</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_groups</span><span class="p">(</span><span class="s2">&quot;dutkiewicz2020&quot;</span><span class="p">)</span>
+
+<span class="c1">#Load parameters:</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_param</span><span class="p">(</span><span class="s2">&quot;dutkiewicz2020&quot;</span><span class="p">)</span>
+
+<span class="c1">#Run model:</span>
+<span class="n">model_output</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">monod_variable</span><span class="p">(</span><span class="n">environment</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">parameters</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="custom-parameters">
-<h2>Custom Parameters<a class="headerlink" href="#custom-parameters" title="Permalink to this headline">¶</a></h2>
+<h2>Custom parameters<a class="headerlink" href="#custom-parameters" title="Permalink to this headline">¶</a></h2>
 <p>Custom parameters can be defined if desired:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">planktonpy</span> <span class="k">as</span> <span class="nn">pp</span>
 
-<span class="n">plankton_groups</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">def_plankton</span><span class="p">(</span><span class="n">pico</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">euk</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">diat</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+<span class="c1">#Define environmental parameters:</span>
+<span class="n">environment</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">def_steady_env</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Si</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">PAR</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+
+<span class="c1">#Define plankton groups:</span>
+<span class="n">groups</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">def_groups</span><span class="p">(</span><span class="n">pico</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">euk</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">diat</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
                                     <span class="n">cocco</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">diat</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">zoo</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
-<span class="n">plankton_param</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">def_param</span><span class="p">(</span><span class="n">cocco_kN</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                               <span class="n">cocco_kI</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                               <span class="n">cocco_kSi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                               <span class="n">cocco_min</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-                               <span class="n">cocco_max</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
-                               <span class="n">cocco_defense</span> <span class="o">=</span> <span class="mf">0.2</span>
-                               <span class="n">diat_kN</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                               <span class="n">diat_kI</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                               <span class="n">diat_kSi</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-                               <span class="n">diat_min</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-                               <span class="n">diat_max</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
-                               <span class="n">diat_defense</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
-                               <span class="n">zoo_min</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
-                               <span class="n">zoo_max</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+<span class="c1">#Load default plankton parameters</span>
+<span class="n">default_param</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_param</span><span class="p">(</span><span class="s2">&quot;dutkiewicz2020&quot;</span><span class="p">)</span>
 
-<span class="n">environment</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">def_env</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Si</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">PAR</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">monod</span><span class="p">(</span><span class="n">plankton_groups</span><span class="p">,</span> <span class="n">plankton_param</span><span class="p">,</span> <span class="n">environment</span><span class="p">)</span>
+<span class="c1">#Define parameter(s):</span>
+<span class="n">custom_param</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">def_param</span><span class="p">(</span><span class="n">default</span> <span class="o">=</span> <span class="n">default_param</span><span class="p">,</span>
+                               <span class="n">cocco_defense</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="c1">#Run model:</span>
+<span class="n">model_output</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">monod_steady</span><span class="p">(</span><span class="n">environment</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">custom_param</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -100,6 +116,9 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/planktonpy.png" alt="Logo"/>
+            </a></p>
 <h1 class="logo"><a href="index.html">PlanktonPy</a></h1>
 
 
@@ -111,10 +130,12 @@
 
 <h3>Navigation</h3>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#monod-model">Monod Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#custom-parameters">Custom Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#steady-state-monod">Steady state monod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#variable-state-monod">Variable state monod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-parameters">Custom parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parallel">Parallel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#projection">Projection</a></li>
